@@ -1,0 +1,380 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
+        .container {
+            display: grid;
+            grid-template-columns: 300px 300px 300px;
+            grid-gap: 50px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background-color: #f5f5f5; */
+            font-family: 'Baloo Paaji 2', cursive;
+        }
+        
+        .card {
+            background-color: #222831;
+            height: 37rem;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+        
+        .card__name {
+            margin-top: 15px;
+            font-size: 1.5em;
+        }
+        
+        .card__image {
+            height: 160px;
+            width: 160px;
+            border-radius: 50%;
+            border: 5px solid #272133;
+            margin-top: 20px;
+            box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+        }
+        
+        .draw-border {
+            box-shadow: inset 0 0 0 4px #58cdd1;
+            color: #58afd1;
+            -webkit-transition: color 0.25s 0.0833333333s;
+            transition: color 0.25s 0.0833333333s;
+            position: relative;
+        }
+        
+        .draw-border::before,
+        .draw-border::after {
+            border: 0 solid transparent;
+            box-sizing: border-box;
+            content: '';
+            pointer-events: none;
+            position: absolute;
+            width: 0rem;
+            height: 0;
+            bottom: 0;
+            right: 0;
+        }
+        
+        .draw-border::before {
+            border-bottom-width: 4px;
+            border-left-width: 4px;
+        }
+        
+        .draw-border::after {
+            border-top-width: 4px;
+            border-right-width: 4px;
+        }
+        
+        .draw-border:hover {
+            color: #ffe593;
+        }
+        
+        .draw-border:hover::before,
+        .draw-border:hover::after {
+            border-color: #eb196e;
+            -webkit-transition: border-color 0s, width 0.25s, height 0.25s;
+            transition: border-color 0s, width 0.25s, height 0.25s;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .draw-border:hover::before {
+            -webkit-transition-delay: 0s, 0s, 0.25s;
+            transition-delay: 0s, 0s, 0.25s;
+        }
+        
+        .draw-border:hover::after {
+            -webkit-transition-delay: 0s, 0.25s, 0s;
+            transition-delay: 0s, 0.25s, 0s;
+        }
+        
+        .btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1.5;
+            font: 700 1.2rem 'Roboto Slab', sans-serif;
+            padding: 0.75em 2em;
+            letter-spacing: 0.05rem;
+            margin: 1em;
+            width: 13rem;
+        }
+        
+        .btn:focus {
+            outline: 2px dotted #55d7dc;
+        }
+        
+        .social-icons {
+            padding: 0;
+            list-style: none;
+            margin: 1em;
+        }
+        
+        .social-icons li {
+            display: inline-block;
+            margin: 0.15em;
+            position: relative;
+            font-size: 1em;
+        }
+        
+        .social-icons i {
+            color: #fff;
+            position: absolute;
+            top: 0.95em;
+            left: 0.96em;
+            transition: all 265ms ease-out;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+        }
+        
+        .social-icons a:before {
+            transform: scale(1);
+            -ms-transform: scale(1);
+            -webkit-transform: scale(1);
+            content: " ";
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            display: block;
+            background: linear-gradient(45deg, #ff003c, #c648c8);
+            transition: all 265ms ease-out;
+        }
+        
+        .social-icons a:hover:before {
+            transform: scale(0);
+            transition: all 265ms ease-in;
+        }
+        
+        .social-icons a:hover i {
+            transform: scale(2.2);
+            -ms-transform: scale(2.2);
+            -webkit-transform: scale(2.2);
+            color: #ff003c;
+            background: -webkit-linear-gradient(45deg, #ff003c, #c648c8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 265ms ease-in;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            font-size: 1.2em;
+        }
+        
+        body {
+            background-color: #ff5961;
+            background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+        }
+        
+        .float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #0C9;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 3px #999;
+        }
+        
+        .my-float {
+            margin-top: 22px;
+            color: black;
+        }
+    </style>
+    <script>
+ /*songs*/
+        function Songs_Eng() {
+            window.open("https://open.spotify.com/playlist/56VQWxRr5ql6HTOmRF0yia?Imi="); 
+        }
+        function Songs_tamil() {
+            window.open("https://open.spotify.com/playlist/2tTa4H3gh4lAPh2KWOzXxK");
+        }
+        function Songs_kannada() {
+            window.open("https://open.spotify.com/playlist/4KRZnq8y3FghxBZcq6QDzq");
+         }
+        function Songs_telegu() {
+            window.open("https://open.spotify.com/playlist/4jW37umAGFKr2oQRAk5pAe");
+         }
+/*Movies*/
+        function Movies_Eng() {
+            window.open("https://www.youtube.com/watch?v=DPmtnb8NBog&pp=ygUsbW92aWVzIHBsYXlsaXN0IGZvciBoYXBweSBwZW9wbGVzIGluIGVuZ2xpc2g%3D");}
+        function Movies_tamil() {
+            window.open("https://youtu.be/sCZMfoMYif4?si=4EGu7AG8PtHAdyde"); }
+        function Movies_kannada() {
+            window.open("https://www.youtube.com/watch?v=3Dzx6Hp7g8M&pp=ygUZaGFwcHkgbW9vZCBtb3ZpZXMga2FubmFkYQ%3D%3D");  }
+        function Movies_telegu() {
+            window.open("https://www.youtube.com/watch?v=Nz1H9bhgXX4&pp=ygUrbW92aWVzIHBsYXlsaXN0IGZvciBoYXBweSBwZW9wbGVzIGluIHRlbGVndQ%3D%3D"); }
+/*Videos*/
+        function Videos_Eng() {
+            window.open("https://www.youtube.com/watch?v=ru0K8uYEZWw&list=PLW9z2i0xwq0F3-8LieqflLLWLWZQgvhEX");
+        }
+        function Videos_tamil() {
+            window.open("https://www.youtube.com/watch?v=nfH0pa0VSBI&list=PLPDcFitil0KybETGScwmqpRhUeq9G2CMw");
+        }
+        function Videos_kannada() {
+            window.open("https://www.youtube.com/watch?v=Ysf4QRrcLGM&list=PLQSAiUDauuJknq-XYUyTTHxiaBBpb8I3_");
+
+        }
+        function Videos_telegu() {
+            window.open("https://www.youtube.com/watch?v=B5I6QhGBUXM&pp=ygU3ZW1vdGlvbmFsIHZpZGVvcyBwbGF5bGlzdCBmb3Igam95IGZ1bGwgcGVvcGxlIGluIHRlbGVndQ%3D%3D");
+         }
+
+  /*PADCAST*/
+
+        function Podcast_english() {
+            window.open("https://www.oprahdaily.com/life/g35565799/best-happiness-podcasts/");}
+        function Podcast_tamil() {
+            window.open("hhttps://gaana.com/podcast/idhayathin-kural-a-feel-good-podcast-season-1"); }
+        function Podcast_kannada() {
+            window.open("https://podtail.com/en/podcast/learn-kannada-podcast-with-tanvi-by-aasha-infinite/");   }
+        function Podcast_telegu() {
+            window.open("https://www.youtube.com/watch?v=-EDhdkiEKM8"); }
+  /*news health care*/
+        function HealthCare_tamil() {
+            window.open("https://zeenews.india.com/tamil/topics/happy");
+            }
+        function HealthCare_Eng() {
+            window.open("https://www.healthline.com/health/how-to-be-happy");
+        }
+        function HealthCare_Kannada() {
+            window.open("https://kannada.news18.com/news/lifestyle/these-are-the-habits-that-everyone-should-follow-to-live-a-happy-life-stg-pjl-1464015.html");
+        }   
+        function HealthCare_telegu() {
+            window.open("https://www.youtube.com/watch?v=wtpBKr98DDo"); 
+        }
+  /*news articles*/
+        function watcharticle_tamil() {
+            window.open("https://www.youtube.com/watch?v=WLkvFWdeubs");
+
+        }
+        function watcharticle_English() {
+            window.open("https://livehappy.com/science/news-trends");
+            }
+        function watcharticle_kannada() {
+            window.open("https://kannada.hindustantimes.com/lifestyle/motivational-success-story-how-to-overcome-failure-5-inspiring-success-story-personality-development-in-kannada-pcp-181691051076568.html");
+        }
+        function watcharticle_telugu() {
+            window.open("https://telugu.samayam.com/lifestyle/relationships/secrets-to-living-a-happier-life-know-here-all-details/articleshow/77715271.cms");
+        }
+    </script>
+</head>
+
+<body>
+    <div style="height:7.5%;font-weight: bold; width: 100%; color: white; text-align: center; font-size: 40px;padding: 0px;margin: 0px;">
+        <p> You are Fearfull! Keep up your good mood with these suggestions</p>
+        <div>
+            <img src="http://127.0.0.1:5000/static/pie_chart.png" alt="Emotion Prediction Probabilities" width="500" height="500">
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="container">
+        <div class="card">
+            <img src="{{url_for('static',filename='images.jpg')}}" class="card__image">
+            <p class="card__name">Music for your mood</p>
+            <div class="grid-container">
+                <div class="grid-child-posts">
+                   <centre>Music</centre> 
+                </div>
+            </div>
+            <button class="btn draw-border" onclick="Songs_Eng()">English </button>
+            <button class="btn draw-border" onclick="Songs_tamil()">Tamil </button>
+            <button class="btn draw-border" onclick="Songs_kannada()">Kannada </button>
+            <button class="btn draw-border" onclick="Songs_telegu()">Telugu </button>
+
+        </div>
+
+        <div class="card">
+            <img src="{{url_for('static',filename='mve.jpg')}}" class="card__image">
+            <p class="card__name">Movies for your mood</p>
+            <div class="grid-container">
+                <div class="grid-child-posts">
+                    Movies
+                </div>
+            </div>
+            <button class="btn draw-border" onclick="Movies_Eng()">English </button>
+            <button class="btn draw-border" onclick="Movies_tamil()">Tamil </button>
+            <button class="btn draw-border" onclick="Movies_kannada()">Kannada </button>
+            <button class="btn draw-border" onclick="Movies_telegu()">Telugu </button>
+
+        </div>
+
+        <div class="card">
+            <img src="{{url_for('static',filename='mve.jpg')}}" class="card__image">
+            <p class="card__name">Videos for your mood</p>
+            <div class="grid-container">
+                <div class="grid-child-posts">
+                    Videos
+                </div>
+            </div>
+            <button class="btn draw-border" onclick="Videos_Eng()">English </button>
+            <button class="btn draw-border" onclick="Videos_tamil()">Tamil </button>
+            <button class="btn draw-border" onclick="Videos_kannada()">Kannada </button>
+            <button class="btn draw-border" onclick="Videos_telegu()">Telugu </button>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <img src="{{url_for('static',filename='pod.jpg')}}" class="card__image">
+            <p class="card__name">Podcast for your mood</p>
+            <div class="grid-container">
+                <div class="grid-child-posts">
+                    Podcast
+                </div>
+            </div>
+            <button class="btn draw-border" onclick="Podcast_english()">English </button>
+            <button class="btn draw-border" onclick="Podcast_tamil()">Tamil </button>
+            <button class="btn draw-border" onclick="Podcast_kannada()">Kannada </button>
+            <button class="btn draw-border" onclick="Podcast_telegu()">Telugu </button>
+
+        </div>
+        <div class="card">
+            <img src="{{url_for('static',filename='h2.jpg')}}" class="card__image">
+            <p class="card__name">Health Care Details</p>
+            <div class="grid-container">
+                <div class="grid-child-posts">
+                    Health Care
+                </div>
+            </div>
+            <button class="btn draw-border" onclick="HealthCare_tamil()">tamil</button>
+            <button class="btn draw-border" onclick="HealthCare_Eng()">English</button>
+            <button class="btn draw-border" onclick="HealthCare_Kannada()"> Kannada</button>
+            <button class="btn draw-border" onclick="HealthCare_telegu()">Telugu</button>
+
+        </div>
+        <div class="card">
+            <img src="{{url_for('static',filename='news.jpg')}}" class="card__image">
+            <p class="card__name">News Article for your mood</p>
+            <div class="grid-container">
+                <div class="grid-child-posts">
+                    News Article
+                </div>
+            </div>
+            <button class="btn draw-border" onclick="watcharticle_tamil()">Tamil</button>
+            <button class="btn draw-border" onclick="watcharticle_English()">English</button>
+            <button class="btn draw-border" onclick="watcharticle_kannada()">Kannada</button>
+            <button class="btn draw-border" onclick="watcharticle_telugu()">Telugu</button>
+
+        </div>
+    </div>
+
+    </div>
+    <a href="{{url_for('home')}}" class="float">
+        <i class="fa fa-home my-float" style='font-size:24px'></i>
+    </a>
+
+</body>
